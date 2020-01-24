@@ -8,12 +8,12 @@ import (
 )
 
 func CreateTodo(c *gin.Context) {
-	tokenID, err := auth.ExtractTokenAuth(c.Request)
+	tokenAuth, err := auth.ExtractTokenAuth(c.Request)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
 	}
-	foundUserUUID, err := model.Model.FetchAuth(tokenID)
+	foundAuth, err := model.Model.FetchAuth(tokenAuth)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
@@ -23,7 +23,7 @@ func CreateTodo(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, err.Error())
 		return
 	}
-	p.UserID = foundUserUUID.UserID
+	p.UserID = foundAuth.UserID
 	post, err := model.Model.CreateTodo(&p)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())

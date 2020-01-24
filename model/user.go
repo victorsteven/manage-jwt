@@ -16,14 +16,17 @@ func (s *Server) ValidateEmail(email string) error {
 	}
 	if email != "" {
 		if err := checkmail.ValidateFormat(email); err != nil {
-			return  err
+			return  errors.New("invalid email")
 		}
 	}
 	return nil
 }
 
 func (s *Server) CreateUser(user *User) (*User, error) {
-	s.ValidateEmail(user.Email)
+	emailErr := s.ValidateEmail(user.Email)
+	if emailErr != nil {
+		return nil, emailErr
+	}
 	err := s.DB.Debug().Create(&user).Error
 	if err != nil {
 		return nil, err

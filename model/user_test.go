@@ -17,6 +17,7 @@ func TestValidateEmail_Success(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+//Using table test to check the two failures at once
 func TestValidateEmail_Failure(t *testing.T) {
 	samples := []struct{
 		email string
@@ -59,7 +60,7 @@ func TestCreateUser_Success(t *testing.T) {
 		log.Fatalf("cannot refresh db tables: %v", err)
 	}
 	//User created
-	user := &User{Email: "stevensunflash@gmail.com"} //note, this email can be anything, because we have removed the validation
+	user := &User{Email: "stevensunflash@gmail.com"}
 	u, err := server.CreateUser(user)
 	assert.Nil(t, err)
 	assert.EqualValues(t, u.ID, 1)
@@ -81,7 +82,6 @@ func TestCreateUser_Duplicate_Email(t *testing.T) {
 	if err != nil {
 		log.Fatalf("cannot seed user: %v", err)
 	}
-	//User created
 	//remember we have seeded this user, so we want to insert him again, it should fail
 	userRequest := &User{Email: "frank@gmail.com"}
 	u, err := server.CreateUser(userRequest)

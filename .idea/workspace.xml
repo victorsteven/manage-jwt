@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42ad7f7a-41e3-4ff1-909f-02bed2494bbd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/todo_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/todo_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/todo.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/todo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/todo_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/todo_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,8 +62,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestCreateUser in manage-jwt/model">
-    <configuration name="TestCreateUser in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.TestCreateTodo_Success in manage-jwt/model">
+    <configuration name="TestCreateTodo_Success in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
       <working_directory value="$PROJECT_DIR$/model" />
       <framework value="gotest" />
@@ -72,10 +71,10 @@
       <package value="manage-jwt/model" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCreateUser$" />
+      <pattern value="^TestCreateTodo_Success$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestValidateEmail in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCreateUser_Duplicate_Email in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
       <working_directory value="$PROJECT_DIR$/model" />
       <framework value="gotest" />
@@ -83,10 +82,10 @@
       <package value="manage-jwt/model" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestValidateEmail$" />
+      <pattern value="^TestCreateUser_Duplicate_Email$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestValidateEmail_Failure in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCreateUser_Success in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
       <working_directory value="$PROJECT_DIR$/model" />
       <framework value="gotest" />
@@ -94,10 +93,10 @@
       <package value="manage-jwt/model" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestValidateEmail_Failure$" />
+      <pattern value="^TestCreateUser_Success$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestValidateEmail_Success in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGetUserByEmail_Success in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
       <working_directory value="$PROJECT_DIR$/model" />
       <framework value="gotest" />
@@ -105,15 +104,27 @@
       <package value="manage-jwt/model" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestValidateEmail_Success$" />
+      <pattern value="^TestGetUserByEmail_Success$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGetUserByID_Success in manage-jwt/model" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="nexmo-message" />
+      <working_directory value="$PROJECT_DIR$/model" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="manage-jwt/model" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestGetUserByID_Success$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestCreateUser in manage-jwt/model" />
-        <item itemvalue="Go Test.TestValidateEmail_Failure in manage-jwt/model" />
-        <item itemvalue="Go Test.TestValidateEmail_Success in manage-jwt/model" />
-        <item itemvalue="Go Test.TestValidateEmail in manage-jwt/model" />
+        <item itemvalue="Go Test.TestCreateTodo_Success in manage-jwt/model" />
+        <item itemvalue="Go Test.TestGetUserByEmail_Success in manage-jwt/model" />
+        <item itemvalue="Go Test.TestCreateUser_Success in manage-jwt/model" />
+        <item itemvalue="Go Test.TestGetUserByID_Success in manage-jwt/model" />
+        <item itemvalue="Go Test.TestCreateUser_Duplicate_Email in manage-jwt/model" />
       </list>
     </recent_temporary>
   </component>

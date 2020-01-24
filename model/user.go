@@ -2,74 +2,49 @@ package model
 
 import (
 	"errors"
-	"fmt"
+	"github.com/badoux/checkmail"
 )
 
 type User struct {
-	ID        uint64 `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
+	ID    uint64 `gorm:"primary_key;auto_increment" json:"id"`
+	Email string `gorm:"size:255;not null;unique" json:"email"`
 }
 
-type UserDB struct {
-	DB map[uint64]*User
+func (s *Server) ValidateEmail(email string) error {
+	if email == "" {
+		return  errors.New("required email")
+	}
+	if email != "" {
+		if err := checkmail.ValidateFormat(email); err != nil {
+			return  err
+		}
+	}
+	return nil
 }
 
-//seed one user, just to make sure we always have a user to test with:
-func (s *UserDB) SeedUser() {
-	user := &User{}
-	user.ID = 1
-	user.FirstName = "Frank"
-	user.LastName = "Abdul"
-	user.Email = "frank@gmail.com"
-	s.DB = make(map[uint64]*User)
-	s.DB[user.ID] = user
-	fmt.Println("SEEDER IS CALLED")
-}
-
-func (s *UserDB) CreateUser(user *User) (*User, error) {
-	//Seed the database first, so that the user created now will have an id of 2 instead of 1
-	s.SeedUser()
-
-	user.ID = uint64(len(s.DB) + 1)
-	//if no record have been inserted the map yet
-	if s.DB == nil {
-		s.DB = make(map[uint64]*User)
-		s.DB[user.ID] = user
-	} else {
-		s.DB[user.ID] = user
+func (s *Server) CreateUser(user *User) (*User, error) {
+	s.ValidateEmail(user.Email)
+	err := s.DB.Debug().Create(&user).Error
+	if err != nil {
+		return nil, err
 	}
 	return user, nil
 }
 
-func (s *UserDB) GetUserByEmail(email string) (*User, error) {
-	//Seed the user, then find him
-	s.SeedUser()
-
-	foundUser := &User{}
-	if s.DB != nil {
-		for _, v := range s.DB {
-			if v.Email == email {
-				foundUser = v
-			}
-		}
-		return foundUser, nil
-	} else {
-		return nil, errors.New("no account found")
+func (s *Server) GetUserByEmail(email string) (*User, error) {
+	user := &User{}
+	err := s.DB.Debug().Where("email = ?", email).Take(&user).Error
+	if err != nil {
+		return nil, err
 	}
+	return user, nil
 }
 
-func (s *UserDB) GetUserByID(id uint64) (*User, error) {
-	foundUser := &User{}
-	if s.DB != nil {
-		for _, v := range s.DB {
-			if v.ID == id {
-				foundUser = v
-			}
-		}
-		return foundUser, nil
-	} else {
-		return nil, errors.New("no account found by the id")
+func (s *Server) GetUserByID(id uint64) (*User, error) {
+	user := &User{}
+	err := s.DB.Debug().Where("id = ?", id).Take(&user).Error
+	if err != nil {
+		return nil, err
 	}
+	return user, nil
 }

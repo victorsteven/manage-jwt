@@ -2,24 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42ad7f7a-41e3-4ff1-909f-02bed2494bbd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/nexmo-message.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/router.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/auth.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller/login_controller.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller/post_controller.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller/user_controller.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/middlewares/middlewares.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/auth_db.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/post.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/todo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/auth/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/login_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/login_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/post_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/todo_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/auth_db.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/auth_uuid.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/post.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -1,36 +1,30 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"manage-jwt/auth"
 	"manage-jwt/model"
 	"net/http"
 )
 
-var (
-	postDB = model.PostDB{}
-)
-
-func CreatePost(c *gin.Context) {
-	tokenID, err := auth.ExtractTokenID(c.Request)
+func CreateTodo(c *gin.Context) {
+	tokenID, err := auth.ExtractTokenAuth(c.Request)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, "Unauthorized")
+		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
 	}
-	foundUserUUID, err := authDB.FetchAuth(tokenID)
+	foundUserUUID, err := model.Model.FetchAuth(tokenID)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, err.Error())
+		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
 	}
-	fmt.Println("the found user UUID: ", foundUserUUID)
-	var p model.Post
+	var p model.Todo
 	if err := c.ShouldBindJSON(&p); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, err.Error())
 		return
 	}
 	p.UserID = foundUserUUID.UserID
-	post, err := postDB.Create(&p)
+	post, err := model.Model.CreateTodo(&p)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return

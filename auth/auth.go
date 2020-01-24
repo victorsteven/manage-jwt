@@ -5,18 +5,19 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 )
 
 type AuthDetails struct {
-	UserUuid string
+	AuthUuid string
 	UserId   uint64
 }
 
 func CreateToken(authD AuthDetails) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
-	claims["user_uuid"] = authD.UserUuid
+	claims["auth_uuid"] = authD.AuthUuid
 	claims["user_id"] = authD.UserId
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte(os.Getenv("API_SECRET")))
@@ -64,18 +65,25 @@ func ExtractToken(r *http.Request) string {
 	return ""
 }
 
-func ExtractTokenID(r *http.Request) (string, error) {
+func ExtractTokenAuth(r *http.Request) (*AuthDetails, error) {
 	token, err := VerifyToken(r)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	claims, ok := token.Claims.(jwt.MapClaims) //the token claims should conform to MapClaims
 	if ok && token.Valid {
-		userUuid, ok := claims["user_uuid"].(string) //convert the interface to string
+		authUuid, ok := claims["auth_uuid"].(string) //convert the interface to string
 		if !ok {
-			return "", err
+			return nil, err
 		}
-		return userUuid, nil
+		userId, err := strconv.ParseUint(fmt.Sprintf("%.f", claims["user_id"]), 10, 64)
+		if err != nil {
+			return nil, err
+		}
+		return &AuthDetails{
+			AuthUuid: authUuid,
+			UserId:   userId,
+		}, nil
 	}
-	return "", nil
+	return nil, err
 }

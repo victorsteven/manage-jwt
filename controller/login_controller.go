@@ -2,13 +2,10 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"manage-jwt/auth"
 	"manage-jwt/model"
 	"net/http"
-)
-
-var (
-	authDB = model.AuthDB{}
 )
 
 func Login(c *gin.Context) {
@@ -18,20 +15,21 @@ func Login(c *gin.Context) {
 		return
 	}
 	//check if the user exist:
-	user, err := userDB.GetUserByEmail(u.Email)
+	user, err := model.Model.GetUserByEmail(u.Email)
 	if err != nil {
 		c.JSON(http.StatusNotFound, err.Error())
 		return
 	}
+
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice
-	authData, err := authDB.CreateAuth(user.ID)
+	authData, err := model.Model.CreateAuth(user.ID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 	var authD auth.AuthDetails
 	authD.UserId = authData.UserID
-	authD.UserUuid = authData.UserUUID
+	authD.AuthUuid = authData.AuthUUID
 
 	token, loginErr := signIn(authD)
 	if loginErr != nil {
@@ -42,23 +40,19 @@ func Login(c *gin.Context) {
 }
 
 func LogOut(c *gin.Context) {
-	tokenID, err := auth.ExtractTokenID(c.Request)
+	token, err := auth.ExtractTokenAuth(c.Request)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, "Unauthorized")
 		return
 	}
-	//foundUserUUID, err := authDB.FetchAuth(tokenID)
-	//if err != nil {
-	//	c.JSON(http.StatusUnauthorized, err.Error())
-	//	return
-	//}
-
 	//if  found the UserUUID, delete it, else, return error
-	delErr := authDB.DeleteAuth(tokenID)
+	delErr := model.Model.DeleteAuth(token)
 	if delErr != nil {
-		c.JSON(http.StatusUnauthorized, delErr.Error())
+		log.Println(delErr)
+		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
 	}
+	c.JSON(http.StatusOK, "Successfully logged out")
 }
 
 func signIn(userUuid auth.AuthDetails) (string, error) {

@@ -1,15 +1,10 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"manage-jwt/auth"
 	"manage-jwt/model"
 	"net/http"
-)
-
-var (
-	userDB = model.UserDB{}
 )
 
 func CreateUser(c *gin.Context) {
@@ -18,27 +13,32 @@ func CreateUser(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, err.Error())
 		return
 	}
-	user, err := userDB.CreateUser(&u)
+	errEmail := model.Model.ValidateEmail(u.Email)
+	if errEmail != nil {
+		c.JSON(http.StatusUnprocessableEntity, "Invalid email given")
+		return
+	}
+	user, err := model.Model.CreateUser(&u)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
-	authData, err := authDB.CreateAuth(user.ID)
+	authData, err := model.Model.CreateAuth(user.ID)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		//since we are dealing with only email, the common error we be "email already exist, if you have more field, please dont hard this this error message as i do below:
+		c.JSON(http.StatusInternalServerError, "email already taken")
 		return
 	}
 
 	var authD auth.AuthDetails
 	authD.UserId = authData.UserID
-	authD.UserUuid = authData.UserUUID
+	authD.AuthUuid = authData.AuthUUID
 
 	//Login the user:
 	token, loginErr := signIn(authD)
 	if loginErr != nil {
-		c.JSON(http.StatusForbidden, "Please try to login later")
+		c.JSON(http.StatusForbidden, "please try to login later")
 		return
 	}
-	fmt.Println("the user: ", user)
 	c.JSON(http.StatusCreated, token)
 }

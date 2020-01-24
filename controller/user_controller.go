@@ -4,18 +4,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"manage-jwt/auth"
 	"manage-jwt/model"
+	"manage-jwt/service"
 	"net/http"
 )
 
 func CreateUser(c *gin.Context) {
 	var u model.User
 	if err := c.ShouldBindJSON(&u); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, err.Error())
-		return
-	}
-	errEmail := model.Model.ValidateEmail(u.Email)
-	if errEmail != nil {
-		c.JSON(http.StatusUnprocessableEntity, "Invalid email given")
+		c.JSON(http.StatusUnprocessableEntity, "invalid json")
 		return
 	}
 	user, err := model.Model.CreateUser(&u)
@@ -35,7 +31,7 @@ func CreateUser(c *gin.Context) {
 	authD.AuthUuid = authData.AuthUUID
 
 	//Login the user:
-	token, loginErr := signIn(authD)
+	token, loginErr := service.Authorize.SignIn(authD)
 	if loginErr != nil {
 		c.JSON(http.StatusForbidden, "please try to login later")
 		return

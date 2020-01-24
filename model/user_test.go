@@ -6,10 +6,6 @@ import (
 	"testing"
 )
 
-var (
-	server = Server{}
-)
-
 func TestValidateEmail_Success(t *testing.T) {
 	//Correct email
 	email := "stevensunflash@gmail.com"

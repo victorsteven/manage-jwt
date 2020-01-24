@@ -2,10 +2,10 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"log"
 	"manage-jwt/model"
 	"os"
-	"github.com/joho/godotenv"
 )
 
 func init() {
@@ -15,13 +15,10 @@ func init() {
 		log.Fatalf("Error getting env, %v", err)
 	}
 }
+var router = gin.Default()
 
-var (
-	router = gin.Default()
-)
-
-func StartApp() {
-
+func  StartApp() {
+	//var conn Connect
 	dbdriver := os.Getenv("DB_DRIVER")
 	username := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")

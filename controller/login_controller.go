@@ -5,6 +5,7 @@ import (
 	"log"
 	"manage-jwt/auth"
 	"manage-jwt/model"
+	"manage-jwt/service"
 	"net/http"
 )
 
@@ -31,7 +32,7 @@ func Login(c *gin.Context) {
 	authD.UserId = authData.UserID
 	authD.AuthUuid = authData.AuthUUID
 
-	token, loginErr := signIn(authD)
+	token, loginErr := service.Authorize.SignIn(authD)
 	if loginErr != nil {
 		c.JSON(http.StatusForbidden, "Please try to login later")
 		return
@@ -55,10 +56,4 @@ func LogOut(c *gin.Context) {
 	c.JSON(http.StatusOK, "Successfully logged out")
 }
 
-func signIn(userUuid auth.AuthDetails) (string, error) {
-	token, err := auth.CreateToken(userUuid)
-	if err != nil {
-		return "", err
-	}
-	return token, nil
-}
+

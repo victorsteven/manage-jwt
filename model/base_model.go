@@ -25,8 +25,9 @@ type modelInterface interface {
 	GetUserByEmail(string) (*User, error)
 	GetUserByID(uint64) (*User, error)
 
-	//item methods:
+	//todo methods:
 	CreateTodo(*Todo) (*Todo, error)
+
 
 	//auth methods:
 	FetchAuth(*auth.AuthDetails) (*Auth, error)

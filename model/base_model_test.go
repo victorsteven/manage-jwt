@@ -17,6 +17,8 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
+
+
 func (s *Server) database() (*gorm.DB, error) {
 	dbDriver := os.Getenv("DB_DRIVER")
 	username := os.Getenv("DB_USER_TEST")
@@ -30,6 +32,9 @@ func (s *Server) database() (*gorm.DB, error) {
 	//return s.DB, err
 }
 
+var (
+	server = Server{}
+)
 //Drop test db data if exist:
 func refreshUserTable() error {
 	err := server.DB.DropTableIfExists(&User{}, &Todo{}, &Auth{}).Error

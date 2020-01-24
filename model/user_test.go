@@ -19,31 +19,31 @@ func TestValidateEmail_Success(t *testing.T) {
 
 //Using table test to check the two failures at once
 func TestValidateEmail_Failure(t *testing.T) {
-	samples := []struct{
-		email string
-		errMsgInvalid string
+	samples := []struct {
+		email            string
+		errMsgInvalid    string
 		errMsgEmptyEmail string
 	}{
 		{
 			//Invalid email
-			email: "stevensunflash.com",
+			email:         "stevensunflash.com",
 			errMsgInvalid: "invalid email",
 		},
 		{
 			//Empty email
-			email: "",
+			email:            "",
 			errMsgEmptyEmail: "required email",
 		},
 	}
 	for _, v := range samples {
-		 err := server.ValidateEmail(v.email)
+		err := server.ValidateEmail(v.email)
 
-		 assert.NotNil(t, err) //there must be an error in either case
+		assert.NotNil(t, err) //there must be an error in either case
 
-		 if err != nil && v.errMsgInvalid != ""  {
-		 	assert.EqualValues(t, v.errMsgInvalid, "invalid email")
-		 }
-		if err != nil && v.errMsgEmptyEmail != ""  {
+		if err != nil && v.errMsgInvalid != "" {
+			assert.EqualValues(t, v.errMsgInvalid, "invalid email")
+		}
+		if err != nil && v.errMsgEmptyEmail != "" {
 			assert.EqualValues(t, v.errMsgEmptyEmail, "required email")
 		}
 	}
@@ -51,10 +51,12 @@ func TestValidateEmail_Failure(t *testing.T) {
 
 func TestCreateUser_Success(t *testing.T) {
 	//Initialize DB:
-	err := server.database()
+	var err error
+	server.DB, err = server.database()
 	if err != nil {
 		log.Fatalf("cannot connect to the db: %v", err)
 	}
+	defer server.DB.Close()
 	err = refreshUserTable()
 	if err != nil {
 		log.Fatalf("cannot refresh db tables: %v", err)
@@ -67,13 +69,14 @@ func TestCreateUser_Success(t *testing.T) {
 	assert.EqualValues(t, u.Email, "stevensunflash@gmail.com")
 }
 
-
 func TestCreateUser_Duplicate_Email(t *testing.T) {
 	//Initialize DB:
-	err := server.database()
+	var err error
+	server.DB, err = server.database()
 	if err != nil {
 		log.Fatalf("cannot connect to the db: %v", err)
 	}
+	defer server.DB.Close()
 	err = refreshUserTable()
 	if err != nil {
 		log.Fatalf("cannot refresh db tables: %v", err)
@@ -93,10 +96,13 @@ func TestCreateUser_Duplicate_Email(t *testing.T) {
 //We will test only for success here, you can write failure cases if you have time, and also to improve ur code coverage
 func TestGetUserByEmail_Success(t *testing.T) {
 	//Initialize DB:
-	err := server.database()
+	var err error
+	server.DB, err = server.database()
 	if err != nil {
 		log.Fatalf("cannot connect to the db: %v", err)
 	}
+	defer server.DB.Close()
+
 	err = refreshUserTable()
 	if err != nil {
 		log.Fatalf("cannot refresh db tables: %v", err)
@@ -114,10 +120,12 @@ func TestGetUserByEmail_Success(t *testing.T) {
 //We will test only for success here, you can write failure cases if you have time, and also to improve ur code coverage
 func TestGetUserByID_Success(t *testing.T) {
 	//Initialize DB:
-	err := server.database()
+	var err error
+	server.DB, err = server.database()
 	if err != nil {
 		log.Fatalf("cannot connect to the db: %v", err)
 	}
+	defer server.DB.Close()
 	err = refreshUserTable()
 	if err != nil {
 		log.Fatalf("cannot refresh db tables: %v", err)

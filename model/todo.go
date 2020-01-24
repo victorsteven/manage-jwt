@@ -12,6 +12,9 @@ func (s *Server) CreateTodo(todo *Todo) (*Todo, error) {
 	if todo.Title == "" {
 		return nil, errors.New("please provide a valid title")
 	}
+	if todo.UserID == 0 {
+		return nil, errors.New("a valid user id is required")
+	}
 	err := s.DB.Debug().Create(&todo).Error
 	if err != nil {
 		return nil, err

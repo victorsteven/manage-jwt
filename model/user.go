@@ -12,11 +12,11 @@ type User struct {
 
 func (s *Server) ValidateEmail(email string) error {
 	if email == "" {
-		return  errors.New("required email")
+		return errors.New("required email")
 	}
 	if email != "" {
 		if err := checkmail.ValidateFormat(email); err != nil {
-			return  errors.New("invalid email")
+			return errors.New("invalid email")
 		}
 	}
 	return nil

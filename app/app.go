@@ -29,7 +29,7 @@ func StartApp() {
 	database := os.Getenv("DB_NAME")
 	db_port := os.Getenv("DB_PORT")
 
-	err := model.Model.Initialize(dbdriver, username, password, db_port, host, database)
+	_, err := model.Model.Initialize(dbdriver, username, password, db_port, host, database)
 	if err != nil {
 		log.Fatal("Error connecting to the database: ", err)
 	}

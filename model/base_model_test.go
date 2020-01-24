@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"log"
 	"os"
@@ -16,8 +17,7 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-
-func (s *Server) database() error {
+func (s *Server) database() (*gorm.DB, error) {
 	dbDriver := os.Getenv("DB_DRIVER")
 	username := os.Getenv("DB_USER_TEST")
 	password := os.Getenv("DB_PASSWORD_TEST")
@@ -25,9 +25,9 @@ func (s *Server) database() error {
 	database := os.Getenv("DB_NAME_TEST")
 	port := os.Getenv("DB_PORT")
 
-	err := s.Initialize(dbDriver, username, password, port, host, database)
-
-	return err
+	//var err error
+	return s.Initialize(dbDriver, username, password, port, host, database)
+	//return s.DB, err
 }
 
 //Drop test db data if exist:
@@ -53,4 +53,16 @@ func seedOneUser() (*User, error) {
 		return nil, err
 	}
 	return user, nil
+}
+
+func seedOneAuth() (*Auth, error) {
+	au := &Auth{
+		AuthUUID: "43b78a87-6bcf-439a-ab2e-940d50c4dc33",
+		UserID:   1,
+	}
+	err := server.DB.Create(&au).Error
+	if err != nil {
+		return nil, err
+	}
+	return au, nil
 }

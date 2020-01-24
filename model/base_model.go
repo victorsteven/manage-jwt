@@ -17,7 +17,7 @@ var (
 )
 
 type modelInterface interface {
-	Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) error
+	Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) (*gorm.DB, error)
 
 	//user methods
 	ValidateEmail(string) error
@@ -34,17 +34,17 @@ type modelInterface interface {
 	CreateAuth(uint64) (*Auth, error)
 }
 
-func (s *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) error {
+func (s *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) (*gorm.DB, error) {
 	var err error
 	DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", DbHost, DbPort, DbUser, DbName, DbPassword)
 	s.DB, err = gorm.Open(Dbdriver, DBURL)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	s.DB.Debug().AutoMigrate(
 		&User{},
 		&Auth{},
 		&Todo{},
 	)
-	return nil
+	return s.DB, nil
 }

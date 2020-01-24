@@ -1,7 +1,6 @@
 package model
 
 import (
-	"fmt"
 	"github.com/twinj/uuid"
 	"manage-jwt/auth"
 )
@@ -13,10 +12,6 @@ type Auth struct {
 }
 
 func (s *Server) FetchAuth(authD *auth.AuthDetails) (*Auth, error) {
-	fmt.Println("WE ENTERED HERE")
-	fmt.Println("the is the user id: ", authD.UserId)
-	fmt.Println("the is the auth id: ", authD.AuthUuid)
-
 	au := &Auth{}
 	err := s.DB.Debug().Where("user_id = ? AND auth_uuid = ?", authD.UserId, authD.AuthUuid).Take(&au).Error
 	if err != nil {

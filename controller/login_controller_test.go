@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"manage-jwt/auth"
@@ -92,4 +93,66 @@ func TestLogin_Not_Found_User(t *testing.T) {
 	assert.NotNil(t, errString)
 	assert.EqualValues(t, http.StatusNotFound, rr.Code)
 	assert.EqualValues(t, "email not found", errString)
+}
+
+
+func TestLogOut_Success(t *testing.T) {
+	//Now exchange the real implementation with our mock
+	model.Model = &fakeServer{}
+
+	fetchAuth = func(*auth.AuthDetails) (*model.Auth, error) {
+		return &model.Auth{
+			ID:    1,
+			UserID: 1,
+			AuthUUID: "83b09612-9dfc-4c1d-8f7d-a589acec7081",
+		}, nil
+	}
+	deleteAuth = func(au *auth.AuthDetails) error {
+		return nil //no errors deleting
+	}
+
+	r := gin.Default()
+	req, err := http.NewRequest(http.MethodPost, "/logout", nil)
+	if err != nil {
+		t.Errorf("this is the error: %v\n", err)
+	}
+	//It is an authenticated user can create a todo, so, lets pass a token to our request headers
+	tk := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3V1aWQiOiJjMmUxYjBjMy00ZGRjLTQ0NjUtYWVkNC1iNGE2NDM5NzI4M2MiLCJhdXRob3JpemVkIjp0cnVlLCJ1c2VyX2lkIjoxfQ.FWbfdhEJeK7mjZ-lWvs9scuyUrSKPrC4xafUoEqkduc"
+	tokenString := fmt.Sprintf("Bearer %v", tk)
+	req.Header.Set("Authorization", tokenString)
+
+	rr := httptest.NewRecorder()
+	r.POST("/logout", LogOut)
+	r.ServeHTTP(rr, req)
+
+	var loggedOut string
+	err = json.Unmarshal(rr.Body.Bytes(), &loggedOut)
+	assert.Nil(t, err)
+	assert.EqualValues(t, http.StatusOK, rr.Code)
+	assert.EqualValues(t, "Successfully logged out", loggedOut)
+}
+
+//Anything from empty or wrong token returns unauthorized. From the example, we used a wrong token. we added wrong letters at the end.
+//Since for sure a todo will not be created, we avoided mocking the fetchAuth and the deleteAuth methods.
+func TestLogout_Unauthorized_User(t *testing.T) {
+
+	r := gin.Default()
+	req, err := http.NewRequest(http.MethodPost, "/logout", nil)
+	if err != nil {
+		t.Errorf("this is the error: %v\n", err)
+	}
+	//It is an authenticated user can create a todo, so, lets pass a token to our request headers
+	tk := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3V1aWQiOiJjMmUxYjBjMy00ZGRjLTQ0NjUtYWVkNC1iNGE2NDM5NzI4M2MiLCJhdXRob3JpemVkIjp0cnVlLCJ1c2VyX2lkIjoxfQ.FWbfdhEJeK7mjZ-lWvs9scuyUrSKPrC4xafUoEqkducxx"
+	tokenString := fmt.Sprintf("Bearer %v", tk)
+	req.Header.Set("Authorization", tokenString)
+
+	rr := httptest.NewRecorder()
+	r.POST("/logout", LogOut)
+	r.ServeHTTP(rr, req)
+
+	var errMsg string
+	err = json.Unmarshal(rr.Body.Bytes(), &errMsg)
+	assert.Nil(t, err)
+	assert.EqualValues(t, http.StatusUnauthorized, rr.Code)
+	assert.EqualValues(t, "unauthorized", errMsg)
 }

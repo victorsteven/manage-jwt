@@ -112,26 +112,3 @@ func TestGetUserByEmail_Success(t *testing.T) {
 	assert.Nil(t, err)
 	assert.EqualValues(t, getUser.Email, user.Email)
 }
-
-//We will test only for success here, you can write failure cases if you have time, and also to improve ur code coverage
-func TestGetUserByID_Success(t *testing.T) {
-	//Initialize DB:
-	var err error
-	server.DB, err = server.database()
-	if err != nil {
-		log.Fatalf("cannot connect to the db: %v", err)
-	}
-	defer server.DB.Close()
-	err = refreshUserTable()
-	if err != nil {
-		log.Fatalf("cannot refresh db tables: %v", err)
-	}
-	user, err := seedOneUser()
-	if err != nil {
-		log.Fatalf("cannot seed user: %v", err)
-	}
-	userId := uint64(1) //convert int to uint64
-	getUser, err := server.GetUserByID(userId)
-	assert.Nil(t, err)
-	assert.EqualValues(t, getUser.ID, user.ID)
-}

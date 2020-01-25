@@ -24,7 +24,6 @@ type modelInterface interface {
 	ValidateEmail(string) error
 	CreateUser(*User) (*User, error)
 	GetUserByEmail(string) (*User, error)
-	GetUserByID(uint64) (*User, error)
 
 	//todo methods:
 	CreateTodo(*Todo) (*Todo, error)

@@ -43,11 +43,3 @@ func (s *Server) GetUserByEmail(email string) (*User, error) {
 	return user, nil
 }
 
-func (s *Server) GetUserByID(id uint64) (*User, error) {
-	user := &User{}
-	err := s.DB.Debug().Where("id = ?", id).Take(&user).Error
-	if err != nil {
-		return nil, err
-	}
-	return user, nil
-}

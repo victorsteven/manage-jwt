@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42ad7f7a-41e3-4ff1-909f-02bed2494bbd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/controller_mock_setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/controller_mock_setup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/todo_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/todo_controller_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/login_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/login_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/login_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/login_controller_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/base_model.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/base_model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,8 +64,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestCreateTodo_Unauthorized_User in manage-jwt/controller">
-    <configuration name="TestCreateTodo_Success in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.TestLogout_Unauthorized_User in manage-jwt/controller">
+    <configuration name="TestCreateTodo_Invalid_Input in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
       <working_directory value="$PROJECT_DIR$/controller" />
       <framework value="gotest" />
@@ -70,10 +73,10 @@
       <package value="manage-jwt/controller" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCreateTodo_Success$" />
+      <pattern value="^TestCreateTodo_Invalid_Input$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestCreateTodo_Unauthorized_User in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestLogOut_Success in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
       <working_directory value="$PROJECT_DIR$/controller" />
       <framework value="gotest" />
@@ -81,10 +84,10 @@
       <package value="manage-jwt/controller" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCreateTodo_Unauthorized_User$" />
+      <pattern value="^TestLogOut_Success$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestCreateUser_Success in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestLogout_Unauthorized_User in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
       <working_directory value="$PROJECT_DIR$/controller" />
       <framework value="gotest" />
@@ -92,38 +95,36 @@
       <package value="manage-jwt/controller" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestCreateUser_Success$" />
+      <pattern value="^TestLogout_Unauthorized_User$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestLogin_Not_Found_User in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="go test controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
       <working_directory value="$PROJECT_DIR$/controller" />
       <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="manage-jwt/controller" />
-      <directory value="$PROJECT_DIR$/" />
+      <kind value="DIRECTORY" />
+      <package value="manage-jwt" />
+      <directory value="$PROJECT_DIR$/controller" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestLogin_Not_Found_User$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestLogin_Success in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="go test manage-jwt" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
-      <working_directory value="$PROJECT_DIR$/controller" />
+      <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="manage-jwt/controller" />
-      <directory value="$PROJECT_DIR$/" />
+      <kind value="DIRECTORY" />
+      <package value="manage-jwt" />
+      <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestLogin_Success$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestCreateTodo_Unauthorized_User in manage-jwt/controller" />
-        <item itemvalue="Go Test.TestCreateTodo_Success in manage-jwt/controller" />
-        <item itemvalue="Go Test.TestLogin_Not_Found_User in manage-jwt/controller" />
-        <item itemvalue="Go Test.TestLogin_Success in manage-jwt/controller" />
-        <item itemvalue="Go Test.TestCreateUser_Success in manage-jwt/controller" />
+        <item itemvalue="Go Test.TestLogout_Unauthorized_User in manage-jwt/controller" />
+        <item itemvalue="Go Test.TestLogOut_Success in manage-jwt/controller" />
+        <item itemvalue="Go Test.go test manage-jwt" />
+        <item itemvalue="Go Test.go test controller" />
+        <item itemvalue="Go Test.TestCreateTodo_Invalid_Input in manage-jwt/controller" />
       </list>
     </recent_temporary>
   </component>

@@ -42,7 +42,7 @@ func Login(c *gin.Context) {
 func LogOut(c *gin.Context) {
 	token, err := auth.ExtractTokenAuth(c.Request)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, "Unauthorized")
+		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
 	}
 	//if  found the UserUUID, delete it, else, return error

@@ -5,7 +5,7 @@
 
 - Clone this project to your local machine `https://github.com/victorsteven/manage-jwt.git`
 
-## Heroku App
+#### Heroku App
 
 Application was deployed to Heroku. Use public URL [https://manage-jwt.herokuapp.com](https://manage-jwt.herokuapp.com) with API endpoints.
 
@@ -36,11 +36,6 @@ Application was deployed to Heroku. Use public URL [https://manage-jwt.herokuapp
   ```shell
   $ go test ./...
   ```
-
-## Acknowledgments
-
-- [Andela](https://andela.com/)
-- [forloop Africa](https://forloop.africa/)
 
 ## Author
 

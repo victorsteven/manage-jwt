@@ -6,6 +6,7 @@ import (
 )
 
 func route() {
+	router.GET("/", controller.Index)
 	router.POST("/user", controller.CreateUser)
 	router.POST("/todo", middlewares.TokenAuthMiddleware(), controller.CreateTodo)
 	router.POST("/user/login", controller.Login)

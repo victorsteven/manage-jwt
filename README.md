@@ -25,7 +25,7 @@ Application was deployed to Heroku. Use public URL [https://manage-jwt.herokuapp
 | METHOD | DESCRIPTION                             | ENDPOINTS                 |
 | ------ | --------------------------------------- | ------------------------- |
 | POST   | Register/Signup                         | `/user`                   |
-| POST   | Login                                   | `/user/login`             |
+| POST   | Login                                   | `/login`             |
 | POST   | Create a todo                           | `/todo`                   |
 | POST   | Logout                                  | `/logout`                 |
 

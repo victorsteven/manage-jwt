@@ -8,6 +8,12 @@ import (
 )
 
 func CreateTodo(c *gin.Context) {
+
+	var p model.Todo
+	if err := c.ShouldBindJSON(&p); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, "invalid json")
+		return
+	}
 	tokenAuth, err := auth.ExtractTokenAuth(c.Request)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, "unauthorized")
@@ -16,11 +22,6 @@ func CreateTodo(c *gin.Context) {
 	foundAuth, err := model.Model.FetchAuth(tokenAuth)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, "unauthorized")
-		return
-	}
-	var p model.Todo
-	if err := c.ShouldBindJSON(&p); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, err.Error())
 		return
 	}
 	p.UserID = foundAuth.UserID

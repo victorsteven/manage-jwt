@@ -11,7 +11,8 @@ var (
 	createAuthModel func(uint64) (*model.Auth, error)
 	signIn func(auth.AuthDetails) (string, error)
 	getUserByEmail func(string) (*model.User, error)
-
+	fetchAuth func(*auth.AuthDetails) (*model.Auth, error)
+	createTodoModel func(*model.Todo) (*model.Todo, error)
 )
 
 type fakeServer struct {}
@@ -29,11 +30,11 @@ func (fs *fakeServer) GetUserByEmail(email string) (*model.User, error) {
 func (fs *fakeServer) GetUserByID(uint64) (*model.User, error) {
 	panic("implement me")
 }
-func (fs *fakeServer) CreateTodo(*model.Todo) (*model.Todo, error) {
-	panic("implement me")
+func (fs *fakeServer) CreateTodo(todo *model.Todo) (*model.Todo, error) {
+	return createTodoModel(todo)
 }
-func (fs *fakeServer) FetchAuth(*auth.AuthDetails) (*model.Auth, error) {
-	panic("implement me")
+func (fs *fakeServer) FetchAuth(au *auth.AuthDetails) (*model.Auth, error) {
+	return fetchAuth(au)
 }
 func (fs *fakeServer) DeleteAuth(*auth.AuthDetails) error {
 	panic("implement me")
@@ -45,7 +46,6 @@ func (fs *fakeServer) CreateUser(user *model.User) (*model.User, error) {
 func (fs *fakeServer) CreateAuth(userId uint64) (*model.Auth, error) {
 	return createAuthModel(userId)
 }
-
 
 type fakeSignin struct {}
 

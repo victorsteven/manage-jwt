@@ -17,6 +17,7 @@ var (
 )
 
 type modelInterface interface {
+	//db initialization
 	Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) (*gorm.DB, error)
 
 	//user methods

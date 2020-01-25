@@ -21,7 +21,6 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusNotFound, err.Error())
 		return
 	}
-
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice
 	authData, err := model.Model.CreateAuth(user.ID)
 	if err != nil {

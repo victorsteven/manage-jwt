@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="42ad7f7a-41e3-4ff1-909f-02bed2494bbd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/auth_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/auth/auth_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/user_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/login_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/login_controller.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,27 +60,27 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestToken_Invalid in manage-jwt/auth">
-    <configuration name="TestExtractToken in manage-jwt/auth" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.TestLogin_Success in manage-jwt/controller">
+    <configuration name="TestCreateUser_Success in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
-      <working_directory value="$PROJECT_DIR$/auth" />
+      <working_directory value="$PROJECT_DIR$/controller" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="manage-jwt/auth" />
+      <package value="manage-jwt/controller" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestExtractToken$" />
+      <pattern value="^TestCreateUser_Success$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestExtractTokenAuth in manage-jwt/auth" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestLogin_Success in manage-jwt/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="nexmo-message" />
-      <working_directory value="$PROJECT_DIR$/auth" />
+      <working_directory value="$PROJECT_DIR$/controller" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="manage-jwt/auth" />
+      <package value="manage-jwt/controller" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestExtractTokenAuth$" />
+      <pattern value="^TestLogin_Success$" />
       <method v="2" />
     </configuration>
     <configuration name="TestTokenValid in manage-jwt/auth" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -118,11 +117,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestToken_Invalid in manage-jwt/auth" />
+        <item itemvalue="Go Test.TestLogin_Success in manage-jwt/controller" />
+        <item itemvalue="Go Test.TestCreateUser_Success in manage-jwt/controller" />
         <item itemvalue="Go Test.go test auth" />
+        <item itemvalue="Go Test.TestToken_Invalid in manage-jwt/auth" />
         <item itemvalue="Go Test.TestTokenValid in manage-jwt/auth" />
-        <item itemvalue="Go Test.TestExtractTokenAuth in manage-jwt/auth" />
-        <item itemvalue="Go Test.TestExtractToken in manage-jwt/auth" />
       </list>
     </recent_temporary>
   </component>

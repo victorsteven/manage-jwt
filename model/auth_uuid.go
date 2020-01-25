@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/twinj/uuid"
-	"manage-jwt/auth"
+"github.com/twinj/uuid"
+"manage-jwt/auth"
 )
 
 type Auth struct {

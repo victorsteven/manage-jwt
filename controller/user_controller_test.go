@@ -5,9 +5,7 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
-	"manage-jwt/auth"
 	"manage-jwt/model"
-	"manage-jwt/service"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -15,8 +13,8 @@ import (
 
 
 func TestCreateUser_Success(t *testing.T) {
-	model.Model = &fakeServer{}
-	service.Authorize = &fakeSignin{}
+
+	model.Model = &fakeServer{} //this is where the swapping of the real method with the fake one
 
 	createUserModel = func(*model.User) (*model.User, error) {
 		return &model.User{
@@ -24,17 +22,6 @@ func TestCreateUser_Success(t *testing.T) {
 			Email: "sunflash@gmail.com",
 		}, nil
 	}
-	createAuthModel  = func(uint64) (*model.Auth, error) {
-		return &model.Auth{
-			ID:       1,
-			UserID:   1,
-			AuthUUID: "83b09612-9dfc-4c1d-8f7d-a589acec7081",
-		}, nil
-	}
-	signIn  = func(auth.AuthDetails) (string, error) {
-		return  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3V1aWQiOiI4M2IwOTYxMi05ZGZjLTRjMWQtOGY3ZC1hNTg5YWNlYzcwODEiLCJhdXRob3JpemVkIjp0cnVlLCJ1c2VyX2lkIjo1fQ.otegNS-W9OE8RsqGtiyJRCB-H0YXBygNXP91qeCPdF8", nil
-	}
-
 	//Now let test only the controller implementation,  void of external methods. Remember, the end result when the function runs to to return a JWT. And that JWT that will be returned is the one we have defined above.
 	u := model.User{
 		Email: "vicsdfddt@gmail.com",
@@ -52,11 +39,12 @@ func TestCreateUser_Success(t *testing.T) {
 	r.POST("/user", CreateUser)
 	r.ServeHTTP(rr, req)
 
-	var token string
-	err = json.Unmarshal(rr.Body.Bytes(), &token)
+	var user model.User
+	err = json.Unmarshal(rr.Body.Bytes(), &user)
 	assert.Nil(t, err)
 	assert.EqualValues(t, http.StatusCreated, rr.Code)
-	assert.EqualValues(t, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3V1aWQiOiI4M2IwOTYxMi05ZGZjLTRjMWQtOGY3ZC1hNTg5YWNlYzcwODEiLCJhdXRob3JpemVkIjp0cnVlLCJ1c2VyX2lkIjo1fQ.otegNS-W9OE8RsqGtiyJRCB-H0YXBygNXP91qeCPdF8", token)
+	assert.EqualValues(t, 1, user.ID)
+	assert.EqualValues(t, "sunflash@gmail.com", user.Email)
 }
 
 //We dont need to mock anything here, since our execution will never call the external methods

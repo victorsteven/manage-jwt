@@ -9,8 +9,8 @@ import (
 
 func CreateTodo(c *gin.Context) {
 
-	var p model.Todo
-	if err := c.ShouldBindJSON(&p); err != nil {
+	var td model.Todo
+	if err := c.ShouldBindJSON(&td); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, "invalid json")
 		return
 	}
@@ -24,11 +24,11 @@ func CreateTodo(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
 	}
-	p.UserID = foundAuth.UserID
-	post, err := model.Model.CreateTodo(&p)
+	td.UserID = foundAuth.UserID
+	todo, err := model.Model.CreateTodo(&td)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
-	c.JSON(http.StatusCreated, post)
+	c.JSON(http.StatusCreated, todo)
 }

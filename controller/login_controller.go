@@ -21,7 +21,7 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusNotFound, err.Error())
 		return
 	}
-	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice
+	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
 	authData, err := model.Model.CreateAuth(user.ID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
@@ -40,13 +40,12 @@ func Login(c *gin.Context) {
 }
 
 func LogOut(c *gin.Context) {
-	token, err := auth.ExtractTokenAuth(c.Request)
+	au, err := auth.ExtractTokenAuth(c.Request)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
 	}
-	//if  found the UserUUID, delete it, else, return error
-	delErr := model.Model.DeleteAuth(token)
+	delErr := model.Model.DeleteAuth(au)
 	if delErr != nil {
 		log.Println(delErr)
 		c.JSON(http.StatusUnauthorized, "unauthorized")

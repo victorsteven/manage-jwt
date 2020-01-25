@@ -1,0 +1,41 @@
+version: '3'
+services:
+  app:
+    container_name: todo_app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8888:8888
+    restart: on-failure
+    volumes:              # without this volume mapping to the directory of our project, live reloading wont happen
+      - .:/usr/src/app
+    depends_on:
+      - todo-postgres # This service depends on postgres. Start that first.
+      # - forum-mysql # This service depends on mysql. Start that first.
+    networks:
+      - todo
+
+  todo-postgres:
+    image: postgres:latest
+    container_name: todo_db_postgres
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST}
+    ports:
+      - '5432:5432'
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - todo
+
+volumes:
+  database_postgres:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  todo:
+    driver: bridge
+

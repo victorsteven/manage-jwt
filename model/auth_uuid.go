@@ -30,7 +30,7 @@ func (s *Server) DeleteAuth(authD *auth.AuthDetails) error {
 	return nil
 }
 
-//once the user signup/login, create a row in the auth table, with a new uuid
+//Once the user signup/login, create a row in the auth table, with a new uuid
 func (s *Server) CreateAuth(userId uint64) (*Auth, error) {
 	au := &Auth{}
 	au.AuthUUID = uuid.NewV4().String() //generate a new UUID each time

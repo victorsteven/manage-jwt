@@ -1,46 +1,27 @@
-# Start from golang base image
-FROM golang:alpine as builder
-
-# Add Maintainer info
-LABEL maintainer="Steven Victor <chikodi543@gmail.com>"
-
-# Install git.
-# Git is required for fetching the dependencies.
-RUN apk update && apk add --no-cache git
-
-# Set the current working directory inside the container
-WORKDIR /usr/src/app
-
-# Copy go mod and sum files
-COPY go.mod go.sum ./
-
-# RUN go mod tidy
-
-# Download all dependencies. Dependencies will be cached if the go.mod and the go.sum files are not changed
+# Build the Go API
+FROM golang:latest AS builder
+ADD . /app
+WORKDIR /app/server
 RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-w" -a -o /main .
 
-# Copy the source from the current directory to the working Directory inside the container
-COPY . .
+# Build the Vue application
+FROM node:alpine AS node_builder
+COPY --from=builder /app/client ./
+RUN npm install
+RUN npm run build
 
-# Build the Go app
-RUN  CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
-
-# Start a new stage from scratch
+#FInal build for production
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
+COPY --from=builder /main ./
+COPY --from=builder /app/server/.env .
 
-WORKDIR /root/
-
-# Copy the Pre-built binary file from the previous stage
-COPY --from=builder //usr/src/app/main .
-COPY --from=builder //usr/src/app/.env .
-
-# Expose port 8888 to the outside world
-EXPOSE 8888
-
-#Command to run the executable
-CMD ["./main"]
-
+#When build is run on a vue file, the dist folder is created, copy it to web
+COPY --from=node_builder /dist ./web
+RUN chmod +x ./main
+EXPOSE 8080
+CMD ./main
 
 
 
